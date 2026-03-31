@@ -961,6 +961,12 @@ export default function TrivoxCoreLanding() {
             padding: 16px;
           }
         }
+        @media (max-width: 768px) {
+          * { box-sizing: border-box; }
+          body { overflow-x: hidden; }
+          .pill-tag, .focus-tag { color: #1a1a2e !important; }
+          .tag-label { color: #1a1a2e !important; }
+        }
       `}</style>
 
       <header className={`navbar ${navScrolled ? "scrolled" : ""}`}>
