@@ -787,6 +787,69 @@ export default function TrivoxCoreLanding() {
           transform: translateY(0);
         }
 
+        @media (max-width: 768px) {
+          * {
+            max-width: 100%;
+            box-sizing: border-box;
+          }
+          body {
+            overflow-x: hidden;
+          }
+          .hero-section, section, .container {
+            padding-left: 16px !important;
+            padding-right: 16px !important;
+          }
+          .hero-badge-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+          }
+          .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+          }
+          .cta-buttons button, .cta-buttons a {
+            width: 100%;
+            padding: 14px 24px;
+            border-radius: 12px;
+          }
+          .stats-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            border: 0;
+            background: transparent;
+          }
+          .stats-row > div {
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.65);
+          }
+          .stats-row > div:first-child,
+          .stats-row > div:last-child {
+            border-radius: 12px;
+          }
+          .focus-block, .format-block {
+            padding: 16px;
+            border-radius: 14px;
+            margin: 0 0 16px 0;
+            width: 100%;
+            box-sizing: border-box;
+          }
+          .focus-block .tag, .format-block .tag {
+            padding: 8px 14px;
+            border-radius: 10px;
+            display: block;
+            margin-bottom: 8px;
+          }
+        }
+
         @media (max-width: 1024px) {
           .container { padding: 0 24px; }
           section { --section-space: 80px; }
@@ -833,6 +896,70 @@ export default function TrivoxCoreLanding() {
           .context-tags { display: grid; grid-template-columns: 1fr; }
           .rail-pill { width: 100%; font-size: 13px; }
           .footer-grid, .footer-bottom { grid-template-columns: 1fr; display: grid; }
+        }
+
+        @media (max-width: 375px) {
+          .container,
+          .hero-section,
+          section {
+            padding-left: 14px !important;
+            padding-right: 14px !important;
+          }
+          .hero-section {
+            padding-top: 48px !important;
+            padding-bottom: 10px !important;
+          }
+          h1 {
+            font-size: 32px !important;
+            line-height: 1.12;
+            margin-bottom: 12px;
+          }
+          .hero-lead {
+            font-size: 14px !important;
+            line-height: 1.56;
+          }
+          .hero-company {
+            margin-bottom: 12px;
+            padding: 7px 9px;
+          }
+          .hero-company-sub {
+            font-size: 11px;
+          }
+          .cta-buttons {
+            gap: 10px;
+          }
+          .cta-buttons .btn {
+            min-height: 48px;
+            padding: 12px 16px !important;
+            font-size: 14px;
+          }
+          .stats-row > div {
+            padding: 12px 14px;
+          }
+          .hero-stat b {
+            font-size: 1.45rem !important;
+          }
+          .hero-stat p {
+            font-size: 13px !important;
+            line-height: 1.45;
+          }
+          .context-section {
+            padding-bottom: 16px !important;
+          }
+          .context-card {
+            padding: 12px !important;
+          }
+          .rail-pill {
+            font-size: 12px !important;
+            padding: 7px 12px !important;
+          }
+          .hero-followup {
+            padding-top: 6px;
+            padding-bottom: 46px;
+          }
+          .hero-side {
+            padding: 16px;
+          }
         }
       `}</style>
 
@@ -888,7 +1015,7 @@ export default function TrivoxCoreLanding() {
         <section className="hero">
           <div className="container hero-section">
             <div className="hero-core fade-up">
-              <div className="hero-company">
+              <div className="hero-company hero-badge-row">
                 <span>TRIVOX CORE</span>
                 <i className="hero-company-mark" />
                 <span className="hero-company-sub">tech partner, не подрядчик</span>
@@ -902,7 +1029,7 @@ export default function TrivoxCoreLanding() {
                 Мы объединяем senior-разработчиков и product-специалистов, чтобы запускать решения быстрее,
                 прозрачнее и выгоднее для бизнеса.
               </p>
-              <div className="hero-actions">
+              <div className="hero-actions cta-buttons">
                 <button className="btn btn-primary" onClick={() => jump("contacts")}>
                   Запросить бесплатный аудит
                 </button>
@@ -910,7 +1037,7 @@ export default function TrivoxCoreLanding() {
                   Как мы работаем
                 </button>
               </div>
-              <div className="hero-stats">
+              <div className="hero-stats stats-row">
                 {[
                   ["⚡", "3 дня", "до старта разработки"],
                   ["✅", "99% QA", "на каждом шаге"],
@@ -929,20 +1056,20 @@ export default function TrivoxCoreLanding() {
         <section className="context-section" style={{ paddingTop: 6, paddingBottom: 28 }}>
           <div className="container">
             <div className="context-grid fade-up">
-              <div className="context-card">
+              <div className="context-card focus-block">
                 <div className="rail-label">Фокус:</div>
                 <div className="context-tags">
-                  <span className="rail-pill"><Zap size={14} />Автоматизация</span>
-                  <span className="rail-pill"><Bot size={14} />AI-агенты</span>
-                  <span className="rail-pill"><Server size={14} />Интеграции API</span>
+                  <span className="rail-pill tag"><Zap size={14} />Автоматизация</span>
+                  <span className="rail-pill tag"><Bot size={14} />AI-агенты</span>
+                  <span className="rail-pill tag"><Server size={14} />Интеграции API</span>
                 </div>
               </div>
-              <div className="context-card">
+              <div className="context-card format-block">
                 <div className="rail-label">Формат:</div>
                 <div className="context-tags">
-                  <span className="rail-pill"><BadgeDollarSign size={14} />Фикс-бюджет</span>
-                  <span className="rail-pill"><Rocket size={14} />Weekly демо</span>
-                  <span className="rail-pill"><CircleDot size={14} />QA контроль</span>
+                  <span className="rail-pill tag"><BadgeDollarSign size={14} />Фикс-бюджет</span>
+                  <span className="rail-pill tag"><Rocket size={14} />Weekly демо</span>
+                  <span className="rail-pill tag"><CircleDot size={14} />QA контроль</span>
                 </div>
               </div>
             </div>
