@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import PhoneInput, { isValidPhoneNumber, getCountryCallingCode } from "react-phone-number-input";
+import PhoneInput, { getCountryCallingCode } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import type { E164Number } from "libphonenumber-js";
 import {
