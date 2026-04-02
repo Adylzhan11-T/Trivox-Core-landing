@@ -139,13 +139,20 @@ export default function TrivoxCoreLanding() {
   const [stackTab, setStackTab] = useState<"web" | "backend">("web");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [emailStatus, setEmailStatus] = useState<"idle" | "ok" | "error">("idle");
 
   const onSubmitEmail = async (e: React.FormEvent) => {
     e.preventDefault();
-    const v = email.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+    const phoneTrimmed = phone.trim().replace(/[\s\-()]/g, "");
+    if (phoneTrimmed.length < 7 || !/^\+?\d{7,15}$/.test(phoneTrimmed)) {
+      setEmailStatus("error");
+      window.setTimeout(() => setEmailStatus("idle"), 2800);
+      return;
+    }
+    const emailTrimmed = email.trim();
+    if (emailTrimmed && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrimmed)) {
       setEmailStatus("error");
       window.setTimeout(() => setEmailStatus("idle"), 2800);
       return;
@@ -156,7 +163,8 @@ export default function TrivoxCoreLanding() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: name.trim(),
-          email: v,
+          phone: phoneTrimmed,
+          email: emailTrimmed || "не указан",
           message: message.trim() || "Запрос аудита с сайта",
         }),
       });
@@ -164,6 +172,7 @@ export default function TrivoxCoreLanding() {
         setEmailStatus("ok");
         setEmail("");
         setName("");
+        setPhone("");
         setMessage("");
       } else {
         setEmailStatus("error");
@@ -1344,9 +1353,16 @@ export default function TrivoxCoreLanding() {
               />
               <input
                 className="email-input"
-                placeholder="you@company.com"
-                type="email"
+                placeholder="+7 (XXX) XXX-XX-XX"
+                type="tel"
                 required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+              <input
+                className="email-input"
+                placeholder="Email (необязательно)"
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -1375,7 +1391,7 @@ export default function TrivoxCoreLanding() {
                   <p style={{ color: "var(--color-success)", margin: 0 }}>Отлично! Мы свяжемся с вами в течение 24-48 часов.</p>
                 )}
                 {emailStatus === "error" && (
-                  <p style={{ color: "#e74c3c", margin: 0 }}>Что-то пошло не так. Проверьте email и попробуйте снова.</p>
+                  <p style={{ color: "#e74c3c", margin: 0 }}>Проверьте номер телефона и попробуйте снова.</p>
                 )}
                 {emailStatus === "idle" && (
                   <p className="form-note" style={{ margin: 0 }}>Нажимая кнопку, вы соглашаетесь на обработку запроса.</p>
