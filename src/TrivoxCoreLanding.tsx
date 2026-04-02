@@ -138,6 +138,41 @@ export default function TrivoxCoreLanding() {
   const [navScrolled, setNavScrolled] = useState(false);
   const [stackTab, setStackTab] = useState<"web" | "backend">("web");
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
+  const [emailStatus, setEmailStatus] = useState<"idle" | "ok" | "error">("idle");
+
+  const onSubmitEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const v = email.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+      setEmailStatus("error");
+      window.setTimeout(() => setEmailStatus("idle"), 2800);
+      return;
+    }
+    try {
+      const res = await fetch("https://formspree.io/f/xeeplqaa", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: v,
+          message: message.trim() || "Запрос аудита с сайта",
+        }),
+      });
+      if (res.ok) {
+        setEmailStatus("ok");
+        setEmail("");
+        setName("");
+        setMessage("");
+      } else {
+        setEmailStatus("error");
+      }
+    } catch {
+      setEmailStatus("error");
+    }
+    window.setTimeout(() => setEmailStatus("idle"), 3500);
+  };
 
   useEffect(() => {
     const onScroll = () => setNavScrolled(window.scrollY > 80);
@@ -1065,17 +1100,17 @@ export default function TrivoxCoreLanding() {
               <div className="context-card focus-block">
                 <div className="rail-label">Фокус:</div>
                 <div className="context-tags">
-                  <span className="rail-pill tag"><Zap size={14} />Автоматизация</span>
-                  <span className="rail-pill tag"><Bot size={14} />AI-агенты</span>
-                  <span className="rail-pill tag"><Server size={14} />Интеграции API</span>
+                  <span className="rail-pill"><Zap size={14} />Автоматизация</span>
+                  <span className="rail-pill"><Bot size={14} />AI-агенты</span>
+                  <span className="rail-pill"><Server size={14} />Интеграции API</span>
                 </div>
               </div>
               <div className="context-card format-block">
                 <div className="rail-label">Формат:</div>
                 <div className="context-tags">
-                  <span className="rail-pill tag"><BadgeDollarSign size={14} />Фикс-бюджет</span>
-                  <span className="rail-pill tag"><Rocket size={14} />Weekly демо</span>
-                  <span className="rail-pill tag"><CircleDot size={14} />QA контроль</span>
+                  <span className="rail-pill"><BadgeDollarSign size={14} />Фикс-бюджет</span>
+                  <span className="rail-pill"><Rocket size={14} />Weekly демо</span>
+                  <span className="rail-pill"><CircleDot size={14} />QA контроль</span>
                 </div>
               </div>
             </div>
@@ -1281,28 +1316,71 @@ export default function TrivoxCoreLanding() {
                   <span className="tag" key={t}>{t}</span>
                 ))}
               </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 20 }}>
+                <span className="icon-box" style={{ background: "rgba(255,255,255,.18)", color: "#fff" }}><Mail size={18} /></span>
+                <div>
+                  <p className="muted" style={{ fontSize: 12, margin: 0 }}>Напишите нам напрямую</p>
+                  <a href="mailto:team@trivoxcore.com" style={{ color: "#fff", fontFamily: "'Manrope', sans-serif", fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
+                    team@trivoxcore.com
+                  </a>
+                </div>
+              </div>
             </div>
 
-            <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+            <form className="contact-form" onSubmit={onSubmitEmail}>
               <div style={{ display: "flex", alignItems: "start", justifyContent: "space-between", gap: 12 }}>
                 <div>
-                  <h3>Оставьте email</h3>
+                  <h3>Запросить аудит</h3>
                   <p style={{ marginTop: 6 }}>Ответим с конкретикой и ближайшим шагом.</p>
                 </div>
                 <span className="green-badge"><i className="dot" /> 24-48h</span>
               </div>
               <input
                 className="email-input"
-                placeholder="ваш@email.com"
+                placeholder="Ваше имя"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <input
+                className="email-input"
+                placeholder="you@company.com"
                 type="email"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+              <textarea
+                placeholder="Опишите задачу (необязательно)"
+                rows={3}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                style={{
+                  width: "100%",
+                  border: "1px solid var(--color-border)",
+                  borderRadius: 10,
+                  padding: "12px 14px",
+                  fontSize: 15,
+                  marginTop: 12,
+                  fontFamily: "inherit",
+                  resize: "none",
+                }}
+              />
               <button className="btn btn-primary" style={{ width: "100%", marginTop: 12 }}>
-                Запросить аудит
+                Отправить заявку
                 <ArrowRight size={16} />
               </button>
-              <p className="form-note">Нажимая кнопку, вы соглашаетесь на обработку запроса.</p>
+              <div style={{ marginTop: 10, minHeight: 20, fontSize: 12 }}>
+                {emailStatus === "ok" && (
+                  <p style={{ color: "var(--color-success)", margin: 0 }}>Отлично! Мы свяжемся с вами в течение 24-48 часов.</p>
+                )}
+                {emailStatus === "error" && (
+                  <p style={{ color: "#e74c3c", margin: 0 }}>Что-то пошло не так. Проверьте email и попробуйте снова.</p>
+                )}
+                {emailStatus === "idle" && (
+                  <p className="form-note" style={{ margin: 0 }}>Нажимая кнопку, вы соглашаетесь на обработку запроса.</p>
+                )}
+              </div>
               <div className="mini-help">
                 <span className="icon-box"><Bot size={20} /></span>
                 <div>
@@ -1349,7 +1427,7 @@ export default function TrivoxCoreLanding() {
               <h4>Контакты</h4>
               <div className="footer-links">
                 <button onClick={() => jump("contacts")}>Запросить аудит</button>
-                <a href="mailto:info@trivoxcore.com">info@trivoxcore.com</a>
+                <a href="mailto:team@trivoxcore.com">team@trivoxcore.com</a>
                 <a href="#">
                   <MapPin size={14} style={{ verticalAlign: "text-bottom", marginRight: 6 }} />
                   Алматы, Казахстан
