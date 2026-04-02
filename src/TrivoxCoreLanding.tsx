@@ -1475,7 +1475,7 @@ export default function TrivoxCoreLanding() {
               <input
                 className="email-input"
                 placeholder="Email (необязательно)"
-                type="email"
+                type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
