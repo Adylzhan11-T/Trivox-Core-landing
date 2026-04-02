@@ -777,7 +777,8 @@ export default function TrivoxCoreLanding() {
           border: 1px solid var(--color-border);
           border-radius: 10px;
           background: #fff;
-          overflow: hidden;
+          position: relative;
+          z-index: 50;
         }
         .phone-input-wrap:focus-within {
           border-color: var(--color-accent);
