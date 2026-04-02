@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import PhoneInput, { isValidPhoneNumber, getCountryCallingCode } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import type { E164Number } from "libphonenumber-js";
 import {
@@ -134,6 +134,45 @@ const stackTabs: Record<"web" | "backend", Tech[]> = {
     { name: "Nginx", slug: "nginx" },
   ],
 };
+
+const CIS_CODES = ["KZ","RU","UZ","KG","TJ","TM","BY","UA","AZ","AM","GE","MD"];
+const POPULAR_CODES = ["US","GB","DE","FR","TR","AE","CN","IN","IL","KR","JP","SA","QA","IT","ES","PL","CZ","CA"];
+const ALLOWED_COUNTRIES = [...CIS_CODES, ...POPULAR_CODES] as any;
+const CIS_SET = new Set(CIS_CODES);
+
+function CountrySelect({ value, onChange, options, iconComponent: Icon }: any) {
+  const cis = options.filter((o: any) => o.value && CIS_SET.has(o.value));
+  const other = options.filter((o: any) => o.value && !CIS_SET.has(o.value));
+  const code = value ? `+${getCountryCallingCode(value)}` : "";
+
+  return (
+    <label className="cs-wrap">
+      {value && Icon && <Icon country={value} label="" />}
+      <span className="cs-code">{code}</span>
+      <span className="cs-arrow">▾</span>
+      <select
+        value={value || ""}
+        onChange={(e) => onChange(e.target.value || undefined)}
+        className="cs-native-select"
+      >
+        <optgroup label="СНГ">
+          {cis.map((o: any) => (
+            <option key={o.value} value={o.value}>
+              {o.label} (+{getCountryCallingCode(o.value)})
+            </option>
+          ))}
+        </optgroup>
+        <optgroup label="Другие">
+          {other.map((o: any) => (
+            <option key={o.value} value={o.value}>
+              {o.label} (+{getCountryCallingCode(o.value)})
+            </option>
+          ))}
+        </optgroup>
+      </select>
+    </label>
+  );
+}
 
 export default function TrivoxCoreLanding() {
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -756,22 +795,6 @@ export default function TrivoxCoreLanding() {
         }
         .phone-input-wrap {
           margin-top: 12px;
-        }
-        .phone-input-wrap .PhoneInputCountry {
-          padding-left: 14px;
-        }
-        .phone-input-wrap .PhoneInputInput {
-          width: 100%;
-          height: 52px;
-          border: none;
-          border-radius: 0 10px 10px 0;
-          padding: 0 14px;
-          font-size: 15px;
-          font-family: inherit;
-          outline: none;
-          background: transparent;
-        }
-        .phone-input-wrap {
           display: flex;
           align-items: center;
           border: 1px solid var(--color-border);
@@ -784,13 +807,61 @@ export default function TrivoxCoreLanding() {
           border-color: var(--color-accent);
           box-shadow: 0 0 0 3px rgba(30,127,216,.12);
         }
-        .phone-input-wrap .PhoneInputCountryIcon {
-          width: 24px;
-          height: 18px;
+        .phone-input-wrap .PhoneInputInput {
+          width: 100%;
+          height: 52px;
+          border: none;
+          border-radius: 0 10px 10px 0;
+          padding: 0 14px;
+          font-size: 15px;
+          font-family: inherit;
+          outline: none;
+          background: transparent;
         }
-        .phone-input-wrap .PhoneInputCountrySelectArrow {
-          margin-left: 6px;
-          opacity: .5;
+        .cs-wrap {
+          display: flex;
+          align-items: center;
+          padding: 0 10px 0 14px;
+          gap: 6px;
+          flex-shrink: 0;
+          position: relative;
+          cursor: pointer;
+          border-right: 1px solid var(--color-border);
+          align-self: stretch;
+        }
+        .cs-wrap .PhoneInputCountryIcon {
+          width: 22px;
+          height: 16px;
+          overflow: hidden;
+          border-radius: 2px;
+          flex-shrink: 0;
+          line-height: 0;
+        }
+        .cs-wrap .PhoneInputCountryIconImg,
+        .cs-wrap .PhoneInputCountryIcon img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        .cs-code {
+          font-size: 15px;
+          font-weight: 500;
+          color: var(--color-text-main);
+          white-space: nowrap;
+        }
+        .cs-arrow {
+          font-size: 11px;
+          color: var(--color-text-muted);
+        }
+        .cs-native-select {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          cursor: pointer;
+          z-index: 1;
         }
         .form-note { margin-top: 10px; font-size: 12px; color: var(--color-text-muted) !important; }
         .mini-help {
@@ -1394,6 +1465,8 @@ export default function TrivoxCoreLanding() {
               <PhoneInput
                 international
                 defaultCountry="KZ"
+                countries={ALLOWED_COUNTRIES}
+                countrySelectComponent={CountrySelect}
                 placeholder="Номер телефона"
                 value={phone}
                 onChange={setPhone}
