@@ -183,19 +183,20 @@ export default function TrivoxCoreLanding() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState<E164Number | undefined>();
   const [message, setMessage] = useState("");
-  const [emailStatus, setEmailStatus] = useState<"idle" | "ok" | "error">("idle");
+  const [formMsg, setFormMsg] = useState<{ type: "idle" | "ok" | "error"; text: string }>({ type: "idle", text: "" });
 
   const onSubmitEmail = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phone || !isValidPhoneNumber(phone)) {
-      setEmailStatus("error");
-      window.setTimeout(() => setEmailStatus("idle"), 2800);
+    const phoneDigits = phone ? phone.replace(/[^\d]/g, "") : "";
+    if (phoneDigits.length < 10) {
+      setFormMsg({ type: "error", text: "Введите корректный номер телефона." });
+      window.setTimeout(() => setFormMsg({ type: "idle", text: "" }), 2800);
       return;
     }
     const emailTrimmed = email.trim();
     if (emailTrimmed && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrimmed)) {
-      setEmailStatus("error");
-      window.setTimeout(() => setEmailStatus("idle"), 2800);
+      setFormMsg({ type: "error", text: "Проверьте формат email." });
+      window.setTimeout(() => setFormMsg({ type: "idle", text: "" }), 2800);
       return;
     }
     try {
@@ -210,18 +211,18 @@ export default function TrivoxCoreLanding() {
         }),
       });
       if (res.ok) {
-        setEmailStatus("ok");
+        setFormMsg({ type: "ok", text: "Отлично! Мы свяжемся с вами в течение 24-48 часов." });
         setEmail("");
         setName("");
         setPhone(undefined);
         setMessage("");
       } else {
-        setEmailStatus("error");
+        setFormMsg({ type: "error", text: "Ошибка отправки. Попробуйте позже." });
       }
     } catch {
-      setEmailStatus("error");
+      setFormMsg({ type: "error", text: "Ошибка сети. Попробуйте позже." });
     }
-    window.setTimeout(() => setEmailStatus("idle"), 3500);
+    window.setTimeout(() => setFormMsg({ type: "idle", text: "" }), 3500);
   };
 
   useEffect(() => {
@@ -1447,7 +1448,7 @@ export default function TrivoxCoreLanding() {
               </div>
             </div>
 
-            <form className="contact-form" onSubmit={onSubmitEmail}>
+            <form className="contact-form" onSubmit={onSubmitEmail} noValidate>
               <div style={{ display: "flex", alignItems: "start", justifyContent: "space-between", gap: 12 }}>
                 <div>
                   <h3>Запросить аудит</h3>
@@ -1500,13 +1501,13 @@ export default function TrivoxCoreLanding() {
                 <ArrowRight size={16} />
               </button>
               <div style={{ marginTop: 10, minHeight: 20, fontSize: 12 }}>
-                {emailStatus === "ok" && (
-                  <p style={{ color: "var(--color-success)", margin: 0 }}>Отлично! Мы свяжемся с вами в течение 24-48 часов.</p>
+                {formMsg.type === "ok" && (
+                  <p style={{ color: "var(--color-success)", margin: 0 }}>{formMsg.text}</p>
                 )}
-                {emailStatus === "error" && (
-                  <p style={{ color: "#e74c3c", margin: 0 }}>Проверьте номер телефона и попробуйте снова.</p>
+                {formMsg.type === "error" && (
+                  <p style={{ color: "#e74c3c", margin: 0 }}>{formMsg.text}</p>
                 )}
-                {emailStatus === "idle" && (
+                {formMsg.type === "idle" && (
                   <p className="form-note" style={{ margin: 0 }}>Нажимая кнопку, вы соглашаетесь на обработку запроса.</p>
                 )}
               </div>
