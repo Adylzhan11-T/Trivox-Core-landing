@@ -7,6 +7,7 @@ import {
   Github,
   Instagram,
   Linkedin,
+  Mail,
   Menu,
   Network,
   Rocket,
@@ -1319,6 +1320,24 @@ export default function TrivoxCoreLanding() {
                           {x}
                         </span>
                       ))}
+                    </div>
+
+                    <div className="mt-6 flex items-center gap-3">
+                      <span
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10"
+                        style={{ background: "linear-gradient(135deg, rgba(124,58,237,.25), rgba(59,130,246,.18))" }}
+                      >
+                        <Mail size={18} />
+                      </span>
+                      <div>
+                        <div className="text-xs text-white/60">Напишите нам напрямую</div>
+                        <a
+                          href="mailto:team@trivoxcore.com"
+                          className="text-sm font-semibold text-white hover:text-white/80 transition-colors"
+                        >
+                          team@trivoxcore.com
+                        </a>
+                      </div>
                     </div>
                   </div>
 
