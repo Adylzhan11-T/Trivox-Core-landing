@@ -206,7 +206,7 @@ export default function TrivoxCoreLanding() {
         body: JSON.stringify({
           name: name.trim(),
           phone,
-          email: emailTrimmed || "не указан",
+          ...(emailTrimmed ? { email: emailTrimmed } : {}),
           message: message.trim() || "Запрос аудита с сайта",
         }),
       });
