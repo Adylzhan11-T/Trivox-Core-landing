@@ -4,17 +4,16 @@ import {
   Check,
   ChevronDown,
   Code2,
-  Github,
-  Instagram,
-  Linkedin,
+  Globe,
   Mail,
   Menu,
+  MessageCircle,
   Network,
   Rocket,
   ShieldCheck,
   Sparkles,
+  Send,
   Star,
-  Twitter,
   X,
 } from "lucide-react";
 
@@ -1442,10 +1441,10 @@ export default function TrivoxCoreLanding() {
                   </p>
                   <div className="mt-5 flex items-center gap-3">
                     {[
-                      { Icon: Github, label: "GitHub", href: "#" },
-                      { Icon: Twitter, label: "Twitter", href: "#" },
-                      { Icon: Linkedin, label: "LinkedIn", href: "#" },
-                      { Icon: Instagram, label: "Instagram", href: "#" },
+                      { Icon: Send, label: "Telegram", href: "#" },
+                      { Icon: MessageCircle, label: "WhatsApp", href: "#" },
+                      { Icon: Globe, label: "Сайт", href: "#" },
+                      { Icon: Mail, label: "Email", href: "mailto:team@trivoxcore.com" },
                     ].map((s) => (
                       <a
                         key={s.label}
