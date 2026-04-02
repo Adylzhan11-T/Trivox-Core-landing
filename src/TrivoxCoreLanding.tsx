@@ -1,4 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+import type { E164Number } from "libphonenumber-js";
 import {
   ArrowRight,
   BadgeDollarSign,
@@ -139,14 +142,13 @@ export default function TrivoxCoreLanding() {
   const [stackTab, setStackTab] = useState<"web" | "backend">("web");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState<E164Number | undefined>();
   const [message, setMessage] = useState("");
   const [emailStatus, setEmailStatus] = useState<"idle" | "ok" | "error">("idle");
 
   const onSubmitEmail = async (e: React.FormEvent) => {
     e.preventDefault();
-    const phoneTrimmed = phone.trim().replace(/[\s\-()]/g, "");
-    if (phoneTrimmed.length < 7 || !/^\+?\d{7,15}$/.test(phoneTrimmed)) {
+    if (!phone || !isValidPhoneNumber(phone)) {
       setEmailStatus("error");
       window.setTimeout(() => setEmailStatus("idle"), 2800);
       return;
@@ -163,7 +165,7 @@ export default function TrivoxCoreLanding() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: name.trim(),
-          phone: phoneTrimmed,
+          phone,
           email: emailTrimmed || "не указан",
           message: message.trim() || "Запрос аудита с сайта",
         }),
@@ -172,7 +174,7 @@ export default function TrivoxCoreLanding() {
         setEmailStatus("ok");
         setEmail("");
         setName("");
-        setPhone("");
+        setPhone(undefined);
         setMessage("");
       } else {
         setEmailStatus("error");
@@ -751,6 +753,43 @@ export default function TrivoxCoreLanding() {
           padding: 0 14px;
           font-size: 15px;
           margin-top: 12px;
+        }
+        .phone-input-wrap {
+          margin-top: 12px;
+        }
+        .phone-input-wrap .PhoneInputCountry {
+          padding-left: 14px;
+        }
+        .phone-input-wrap .PhoneInputInput {
+          width: 100%;
+          height: 52px;
+          border: none;
+          border-radius: 0 10px 10px 0;
+          padding: 0 14px;
+          font-size: 15px;
+          font-family: inherit;
+          outline: none;
+          background: transparent;
+        }
+        .phone-input-wrap {
+          display: flex;
+          align-items: center;
+          border: 1px solid var(--color-border);
+          border-radius: 10px;
+          background: #fff;
+          overflow: hidden;
+        }
+        .phone-input-wrap:focus-within {
+          border-color: var(--color-accent);
+          box-shadow: 0 0 0 3px rgba(30,127,216,.12);
+        }
+        .phone-input-wrap .PhoneInputCountryIcon {
+          width: 24px;
+          height: 18px;
+        }
+        .phone-input-wrap .PhoneInputCountrySelectArrow {
+          margin-left: 6px;
+          opacity: .5;
         }
         .form-note { margin-top: 10px; font-size: 12px; color: var(--color-text-muted) !important; }
         .mini-help {
@@ -1351,13 +1390,13 @@ export default function TrivoxCoreLanding() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-              <input
-                className="email-input"
-                placeholder="+7 (XXX) XXX-XX-XX"
-                type="tel"
-                required
+              <PhoneInput
+                international
+                defaultCountry="KZ"
+                placeholder="Номер телефона"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={setPhone}
+                className="phone-input-wrap"
               />
               <input
                 className="email-input"
