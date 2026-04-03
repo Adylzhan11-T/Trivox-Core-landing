@@ -118,7 +118,7 @@ const stackTabs: Record<"web" | "backend", Tech[]> = {
     { name: "Java", slug: "openjdk" },
     { name: "Kotlin", slug: "kotlin" },
     { name: "Swift", slug: "swift" },
-    { name: "Objective-C", slug: "objectivec" },
+    { name: "Flutter", slug: "flutter" },
     { name: "Firebase", slug: "firebase" },
   ],
   backend: [
