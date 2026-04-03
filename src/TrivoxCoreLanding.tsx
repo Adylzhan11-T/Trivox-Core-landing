@@ -10,6 +10,7 @@ import {
   Building2,
   CircleDot,
   Check,
+  Compass,
   Handshake,
   LifeBuoy,
   Mail,
@@ -43,6 +44,56 @@ const InstagramIcon = ({ size = 20, color = "currentColor" }: { size?: number; c
   </svg>
 );
 
+const TelegramIcon = ({ size = 20, color = "currentColor" }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+  </svg>
+);
+
+const HeroIllustration = () => (
+  <svg viewBox="0 0 480 360" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto" }}>
+    <rect x="40" y="24" width="320" height="220" rx="14" fill="#fff" stroke="#D0DEF0" strokeWidth="1.2"/>
+    <rect x="40" y="24" width="320" height="32" rx="14" fill="#F4F7FC"/>
+    <rect x="40" y="44" width="320" height="12" fill="#F4F7FC"/>
+    <circle cx="62" cy="40" r="4.5" fill="#D0DEF0"/>
+    <circle cx="76" cy="40" r="4.5" fill="#D0DEF0"/>
+    <circle cx="90" cy="40" r="4.5" fill="#D0DEF0"/>
+    <rect x="64" y="74" width="55" height="5" rx="2.5" fill="rgba(30,127,216,.4)"/>
+    <rect x="64" y="87" width="95" height="5" rx="2.5" fill="rgba(30,127,216,.15)"/>
+    <rect x="78" y="100" width="75" height="5" rx="2.5" fill="rgba(30,127,216,.25)"/>
+    <rect x="78" y="113" width="48" height="5" rx="2.5" fill="rgba(30,127,216,.12)"/>
+    <rect x="64" y="126" width="82" height="5" rx="2.5" fill="rgba(30,127,216,.3)"/>
+    <rect x="64" y="139" width="105" height="5" rx="2.5" fill="rgba(30,127,216,.1)"/>
+    <rect x="78" y="152" width="55" height="5" rx="2.5" fill="rgba(30,127,216,.2)"/>
+    <rect x="218" y="70" width="124" height="80" rx="8" fill="rgba(30,127,216,.03)" stroke="rgba(30,127,216,.08)"/>
+    <rect x="234" y="116" width="14" height="24" rx="4" fill="rgba(30,127,216,.2)"/>
+    <rect x="256" y="104" width="14" height="36" rx="4" fill="rgba(30,127,216,.35)"/>
+    <rect x="278" y="110" width="14" height="30" rx="4" fill="rgba(30,127,216,.22)"/>
+    <rect x="300" y="96" width="14" height="44" rx="4" fill="rgba(30,127,216,.42)"/>
+    <rect x="322" y="106" width="14" height="34" rx="4" fill="rgba(30,127,216,.28)"/>
+    <rect x="218" y="164" width="124" height="7" rx="3.5" fill="rgba(30,127,216,.06)"/>
+    <rect x="218" y="164" width="78" height="7" rx="3.5" fill="rgba(39,174,96,.3)"/>
+    <circle cx="224" cy="192" r="5" fill="rgba(39,174,96,.3)"/>
+    <rect x="234" y="188" width="50" height="4" rx="2" fill="rgba(30,127,216,.12)"/>
+    <rect x="234" y="197" width="35" height="4" rx="2" fill="rgba(30,127,216,.06)"/>
+    <rect x="330" y="44" width="130" height="68" rx="12" fill="#fff" stroke="#D0DEF0" strokeWidth="1"/>
+    <circle cx="352" cy="70" r="10" fill="rgba(30,127,216,.1)"/>
+    <rect x="368" y="65" width="72" height="5" rx="2.5" fill="rgba(30,127,216,.18)"/>
+    <rect x="368" y="76" width="48" height="4" rx="2" fill="rgba(30,127,216,.08)"/>
+    <rect x="346" y="94" width="75" height="5" rx="2.5" fill="rgba(30,127,216,.06)"/>
+    <rect x="346" y="94" width="50" height="5" rx="2.5" fill="rgba(39,174,96,.22)"/>
+    <rect x="10" y="258" width="115" height="56" rx="12" fill="#fff" stroke="#D0DEF0" strokeWidth="1"/>
+    <circle cx="32" cy="280" r="8" fill="rgba(30,127,216,.12)"/>
+    <rect x="46" y="276" width="60" height="4" rx="2" fill="rgba(30,127,216,.15)"/>
+    <rect x="46" y="286" width="42" height="4" rx="2" fill="rgba(30,127,216,.06)"/>
+    <circle cx="420" cy="200" r="22" fill="rgba(30,127,216,.04)" stroke="rgba(30,127,216,.1)" strokeWidth="1.2" strokeDasharray="4 4"/>
+    <circle cx="420" cy="200" r="8" fill="rgba(30,127,216,.12)"/>
+    <circle cx="16" cy="100" r="14" fill="rgba(30,127,216,.03)" stroke="rgba(30,127,216,.06)" strokeDasharray="3 3"/>
+    <line x1="360" y1="112" x2="400" y2="182" stroke="rgba(30,127,216,.08)" strokeWidth="1.2" strokeDasharray="4 4"/>
+    <line x1="130" y1="244" x2="75" y2="264" stroke="rgba(30,127,216,.08)" strokeWidth="1.2" strokeDasharray="4 4"/>
+  </svg>
+);
+
 type Service = { icon: React.ComponentType<{ size?: number }>; title: string; text: string };
 type Advantage = { icon: React.ComponentType<{ size?: number }>; title: string; text: string };
 type Step = { n: string; title: string; text: string };
@@ -69,6 +120,11 @@ const services: Service[] = [
     icon: Zap,
     title: "Автоматизация рутины",
     text: "Документооборот, уведомления, отчёты и внутренние процессы, которые сейчас делаются вручную.",
+  },
+  {
+    icon: Compass,
+    title: "CJM — карта пути клиента",
+    text: "Анализируем путь клиента от первого касания до повторной покупки, находим точки роста и оптимизируем конверсию.",
   },
   {
     icon: Server,
@@ -354,7 +410,7 @@ export default function TrivoxCoreLanding() {
   return (
     <div ref={rootRef} className="site">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap');
         :root {
           --color-primary: #1A3A6B;
           --color-accent: #1E7FD8;
@@ -380,7 +436,7 @@ export default function TrivoxCoreLanding() {
           background: var(--color-bg);
         }
         h1, h2, h3, h4 {
-          font-family: 'Manrope', sans-serif;
+          font-family: 'Space Grotesk', sans-serif;
           margin: 0;
           color: var(--color-primary);
         }
@@ -437,7 +493,7 @@ export default function TrivoxCoreLanding() {
         .btn {
           height: 52px;
           border-radius: 10px;
-          font-family: 'Manrope', sans-serif;
+          font-family: 'Space Grotesk', sans-serif;
           font-weight: 600;
           border: none;
           padding: 0 22px;
@@ -495,7 +551,7 @@ export default function TrivoxCoreLanding() {
           gap: 28px;
         }
         .nav-link {
-          font-family: 'Manrope', sans-serif;
+          font-family: 'Space Grotesk', sans-serif;
           font-weight: 600;
           color: var(--color-primary);
           border: none;
@@ -520,7 +576,7 @@ export default function TrivoxCoreLanding() {
           display: inline-flex;
           align-items: center;
           gap: 10px;
-          font-family: 'Manrope', sans-serif;
+          font-family: 'Space Grotesk', sans-serif;
           font-weight: 800;
           font-size: 26px;
           color: var(--color-primary);
@@ -558,11 +614,26 @@ export default function TrivoxCoreLanding() {
           padding: 72px 0 66px;
         }
         .hero-core {
-          max-width: 940px;
-          margin: 0 auto;
+          max-width: 100%;
+        }
+        .hero-layout {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 40px;
+          align-items: center;
+        }
+        .hero-illust {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .hero-illust svg {
+          max-width: 480px;
+          width: 100%;
+          height: auto;
         }
         .hero-company {
-          font-family: 'Manrope', sans-serif;
+          font-family: 'Space Grotesk', sans-serif;
           font-size: clamp(22px, 2.5vw, 34px);
           font-weight: 800;
           letter-spacing: .06em;
@@ -663,7 +734,7 @@ export default function TrivoxCoreLanding() {
         .hero-stats {
           margin-top: 28px;
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(2, 1fr);
           border: 1px solid var(--color-border);
           border-radius: 14px;
           overflow: hidden;
@@ -678,7 +749,7 @@ export default function TrivoxCoreLanding() {
           border-right: 1px solid var(--color-border);
         }
         .hero-stat:last-child { border-right: none; }
-        .hero-stat b { font-family: 'Manrope', sans-serif; font-size: 2rem; font-weight: 800; color: var(--color-primary); line-height: 1; }
+        .hero-stat b { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 800; color: var(--color-primary); line-height: 1; }
         .hero-stat small { font-size: 20px; margin-right: 6px; }
         .hero-side { padding: 28px; border-radius: 20px; background: var(--color-bg-soft); border: 1px solid var(--color-border); }
         .hero-checks { list-style: none; padding: 0; margin: 20px 0; display: grid; gap: 12px; }
@@ -691,7 +762,7 @@ export default function TrivoxCoreLanding() {
           display: grid;
           gap: 8px;
         }
-        .hero-price strong { font-size: 18px; font-family: 'Manrope', sans-serif; color: var(--color-primary); }
+        .hero-price strong { font-size: 18px; font-family: 'Space Grotesk', sans-serif; color: var(--color-primary); }
         .hero-followup {
           padding-top: 20px;
           padding-bottom: 72px;
@@ -786,7 +857,13 @@ export default function TrivoxCoreLanding() {
           color: var(--color-primary);
         }
 
-        .services-grid, .advantages-grid {
+        .services-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 16px;
+          align-items: stretch;
+        }
+        .advantages-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 16px;
@@ -800,36 +877,39 @@ export default function TrivoxCoreLanding() {
         }
         .service-card h3, .adv-card h3 { margin: 14px 0 10px; }
 
-        .timeline {
-          position: relative;
-          margin-top: 26px;
-          padding-left: 44px;
-          display: grid;
-          gap: 22px;
+        .process-track {
+          display: flex;
+          margin-top: 32px;
+          overflow-x: auto;
+          padding-bottom: 12px;
+          scrollbar-width: thin;
+          scrollbar-color: var(--color-border) transparent;
+          -webkit-overflow-scrolling: touch;
         }
-        .timeline:before {
-          content: "";
-          position: absolute;
-          left: 18px;
-          top: 0;
-          bottom: 0;
-          width: 2px;
-          background: var(--color-border);
+        .process-card {
+          flex: 1 0 0;
+          min-width: 150px;
         }
-        .step { position: relative; }
-        .step-dot {
-          position: absolute;
-          left: -44px;
-          top: 4px;
+        .process-top {
+          display: flex;
+          align-items: center;
+        }
+        .process-num {
           width: 40px;
           height: 40px;
           border-radius: 50%;
           background: var(--gradient-brand);
           color: #fff;
-          font: 700 13px/1 'Manrope', sans-serif;
+          font: 700 13px/1 'Space Grotesk', sans-serif;
           display: grid;
           place-items: center;
-          box-shadow: 0 6px 18px rgba(30,127,216,.3);
+          flex-shrink: 0;
+          box-shadow: 0 4px 14px rgba(30,127,216,.25);
+        }
+        .process-connector {
+          flex: 1;
+          height: 2px;
+          background: var(--color-border);
         }
 
         .stack-tabs { display: inline-flex; gap: 8px; padding: 6px; background: var(--color-bg-soft); border-radius: 12px; border: 1px solid var(--color-border); }
@@ -837,7 +917,7 @@ export default function TrivoxCoreLanding() {
           border: none;
           background: transparent;
           color: var(--color-primary);
-          font-family: 'Manrope', sans-serif;
+          font-family: 'Space Grotesk', sans-serif;
           font-weight: 700;
           padding: 10px 14px;
           border-radius: 9px;
@@ -1043,7 +1123,7 @@ export default function TrivoxCoreLanding() {
           border-radius: 10px;
           border: 1px solid rgba(255,255,255,.3);
           color: #fff;
-          font-family: 'Manrope', sans-serif;
+          font-family: 'Space Grotesk', sans-serif;
           font-weight: 600;
           font-size: 13px;
           text-decoration: none;
@@ -1060,6 +1140,14 @@ export default function TrivoxCoreLanding() {
         .social-link-wa:hover {
           background: rgba(37,211,102,.3);
           border-color: rgba(37,211,102,.6);
+        }
+        .social-link-tg {
+          background: rgba(41,182,246,.15);
+          border-color: rgba(41,182,246,.4);
+        }
+        .social-link-tg:hover {
+          background: rgba(41,182,246,.3);
+          border-color: rgba(41,182,246,.6);
         }
         .green-badge {
           display: inline-flex;
@@ -1100,7 +1188,7 @@ export default function TrivoxCoreLanding() {
         .footer-links { display: grid; gap: 8px; }
         .footer-logo { height: 36px; width: auto; filter: brightness(0) invert(1); }
         .footer-brand {
-          font: 800 32px/1.05 'Manrope', sans-serif;
+          font: 800 32px/1.05 'Space Grotesk', sans-serif;
           letter-spacing: -.02em;
           color: #fff;
           display: inline-flex;
@@ -1226,11 +1314,15 @@ export default function TrivoxCoreLanding() {
           .nav-links, .nav-cta { display: none; }
           .menu-btn { display: inline-flex; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid var(--color-border); background: #fff; border-radius: 10px; }
           .about-grid, .contact-grid { grid-template-columns: 1fr; }
+          .hero-layout { grid-template-columns: 1fr; gap: 24px; }
+          .hero-illust { display: none; }
           .hero-section { padding: 66px 0 20px; }
           .context-section { margin-top: -14px; }
           .context-grid { grid-template-columns: 1fr; }
-          .services-grid, .advantages-grid { grid-template-columns: repeat(2, 1fr); }
+          .services-grid { grid-template-columns: repeat(2, 1fr); }
+          .advantages-grid { grid-template-columns: repeat(2, 1fr); }
           .stack-grid { grid-template-columns: repeat(3, 1fr); }
+          .process-card { flex: 0 0 180px; }
           .footer-grid { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 767px) {
@@ -1258,8 +1350,11 @@ export default function TrivoxCoreLanding() {
           .hero-stats { grid-template-columns: 1fr; }
           .hero-stat { border-right: none; border-bottom: 1px solid var(--color-border); }
           .hero-stat:last-child { border-bottom: none; }
-          .problem-grid, .services-grid, .advantages-grid { grid-template-columns: 1fr; }
+          .problem-grid { grid-template-columns: 1fr; }
+          .services-grid { grid-template-columns: 1fr; }
+          .advantages-grid { grid-template-columns: 1fr; }
           .stack-grid { grid-template-columns: repeat(2, 1fr); }
+          .process-card { flex: 0 0 160px; }
           .context-card { padding: 14px; }
           .context-tags { display: grid; grid-template-columns: 1fr; }
           .rail-pill { width: 100%; font-size: 13px; }
@@ -1389,31 +1484,36 @@ export default function TrivoxCoreLanding() {
         <section className="hero">
           <div className="container hero-section">
             <div className="hero-core fade-up">
-              <div className="hero-company hero-badge-row">
-                <span>TRIVOX CORE</span>
-                <i className="hero-company-mark" />
-                <span className="hero-company-sub">tech partner, не подрядчик</span>
-              </div>
-              <h1>
-                IT-аутсорсинг
-                <br />
-                нового поколения
-              </h1>
-              <p className="hero-lead">
-                Мы объединяем senior-разработчиков и product-специалистов, чтобы запускать решения быстрее,
-                прозрачнее и выгоднее для бизнеса.
-              </p>
-              <div className="hero-actions cta-buttons">
-                <button className="btn btn-primary" onClick={() => jump("contacts")}>
-                  Запросить бесплатный аудит
-                </button>
-                <button className="btn btn-secondary" onClick={() => jump("process")}>
-                  Как мы работаем
-                </button>
+              <div className="hero-layout">
+                <div className="hero-text">
+                  <div className="hero-company hero-badge-row">
+                    <span>TRIVOX CORE</span>
+                    <i className="hero-company-mark" />
+                  </div>
+                  <h1>
+                    IT-аутсорсинг
+                    <br />
+                    нового поколения
+                  </h1>
+                  <p className="hero-lead">
+                    Мы объединяем senior-разработчиков и product-специалистов, чтобы запускать решения быстрее,
+                    прозрачнее и выгоднее для бизнеса.
+                  </p>
+                  <div className="hero-actions cta-buttons">
+                    <button className="btn btn-primary" onClick={() => jump("contacts")}>
+                      Запросить бесплатный аудит
+                    </button>
+                    <button className="btn btn-secondary" onClick={() => jump("process")}>
+                      Как мы работаем
+                    </button>
+                  </div>
+                </div>
+                <div className="hero-illust">
+                  <HeroIllustration />
+                </div>
               </div>
               <div className="hero-stats stats-row">
                 {[
-                  ["⚡", "3 дня", "до старта разработки"],
                   ["✅", "99% QA", "на каждом шаге"],
                   ["🤖", "AI в деле", "встраиваем по делу"],
                 ].map(([icon, v, t]) => (
@@ -1597,12 +1697,15 @@ export default function TrivoxCoreLanding() {
             <div className="eyebrow">Как это работает</div>
             <h2>Просто и прозрачно</h2>
             <p>Чёткий процесс без неожиданностей.</p>
-            <div className="timeline">
-              {steps.map((s) => (
-                <div className="step" key={s.n}>
-                  <span className="step-dot">{s.n}</span>
-                  <h3>{s.title}</h3>
-                  <p style={{ marginTop: 8 }}>{s.text}</p>
+            <div className="process-track">
+              {steps.map((s, i) => (
+                <div className="process-card" key={s.n}>
+                  <div className="process-top">
+                    <span className="process-num">{s.n}</span>
+                    {i < steps.length - 1 && <span className="process-connector" />}
+                  </div>
+                  <h3 style={{ marginTop: 14, fontSize: 15 }}>{s.title}</h3>
+                  <p style={{ marginTop: 4, fontSize: 13, lineHeight: 1.5, paddingRight: 8 }}>{s.text}</p>
                 </div>
               ))}
             </div>
@@ -1653,7 +1756,7 @@ export default function TrivoxCoreLanding() {
                 <span className="icon-box" style={{ background: "rgba(255,255,255,.18)", color: "#fff" }}><Mail size={18} /></span>
                 <div>
                   <p className="muted" style={{ fontSize: 12, margin: 0 }}>Напишите нам напрямую</p>
-                  <a href="mailto:team@trivoxcore.com" style={{ color: "#fff", fontFamily: "'Manrope', sans-serif", fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
+                  <a href="mailto:team@trivoxcore.com" style={{ color: "#fff", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
                     team@trivoxcore.com
                   </a>
                 </div>
@@ -1667,6 +1770,15 @@ export default function TrivoxCoreLanding() {
                 >
                   <WhatsAppIcon size={16} />
                   WhatsApp
+                </a>
+                <a
+                  href="https://t.me/trivoxcore"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link social-link-tg"
+                >
+                  <TelegramIcon size={16} />
+                  Telegram
                 </a>
                 <a
                   href="https://www.linkedin.com/company/trivox-core/"
@@ -1775,6 +1887,7 @@ export default function TrivoxCoreLanding() {
               <p style={{ marginTop: 10 }}>делаем то, чего не хватает рынку</p>
               <div style={{ display: "flex", gap: 14, marginTop: 12, alignItems: "center" }}>
                 <a href="https://wa.me/77001234567" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><WhatsAppIcon size={20} color="#25D366" /></a>
+                <a href="https://t.me/trivoxcore" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><TelegramIcon size={20} color="#29B6F6" /></a>
                 <a href="https://www.linkedin.com/company/trivox-core/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><LinkedinIcon size={20} color="#fff" /></a>
                 <a href="https://www.instagram.com/trivoxcore" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><InstagramIcon size={20} color="#fff" /></a>
                 <a href="mailto:team@trivoxcore.com" aria-label="Email"><Mail size={20} color="#fff" /></a>
