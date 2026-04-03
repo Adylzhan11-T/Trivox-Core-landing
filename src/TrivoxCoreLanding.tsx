@@ -611,7 +611,7 @@ export default function TrivoxCoreLanding() {
         .hero-section {
           position: relative;
           z-index: 1;
-          padding: 72px 0 48px;
+          padding: 72px 0 32px;
         }
         .hero-core {
           max-width: 100%;
@@ -666,13 +666,13 @@ export default function TrivoxCoreLanding() {
         }
         .context-section {
           padding-top: 0 !important;
-          padding-bottom: 22px !important;
-          margin-top: -40px;
+          padding-bottom: 20px !important;
+          margin-top: -16px;
         }
         .context-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 20px;
+          gap: 24px;
           margin-top: 0;
         }
         .context-card {
@@ -764,7 +764,7 @@ export default function TrivoxCoreLanding() {
         }
         .hero-price strong { font-size: 18px; font-family: 'Space Grotesk', sans-serif; color: var(--color-primary); }
         .hero-followup {
-          padding-top: 10px;
+          padding-top: 4px;
           padding-bottom: 72px;
         }
         .hero-side-inner {
@@ -1299,7 +1299,7 @@ export default function TrivoxCoreLanding() {
           .hero-layout { grid-template-columns: 1fr; gap: 24px; }
           .hero-illust { display: none; }
           .hero-section { padding: 66px 0 20px; }
-          .context-section { margin-top: -20px; }
+          .context-section { margin-top: -10px; }
           .context-grid { grid-template-columns: 1fr; }
           .services-grid { grid-template-columns: repeat(2, 1fr); }
           .advantages-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1314,7 +1314,7 @@ export default function TrivoxCoreLanding() {
           .brand-text { font-size: 18px; letter-spacing: 0; }
           .brand-dot { width: 8px; height: 8px; box-shadow: 0 0 0 3px rgba(30,127,216,.16); }
           .hero-section { padding: 56px 0 14px; }
-          .context-section { margin-top: -10px; padding-bottom: 16px !important; }
+          .context-section { margin-top: -6px; padding-bottom: 14px !important; }
           .hero-company {
             font-size: 18px;
             padding: 8px 10px;
@@ -1488,7 +1488,7 @@ export default function TrivoxCoreLanding() {
           </div>
         </section>
 
-        <section className="context-section" style={{ paddingTop: 0, paddingBottom: 28 }}>
+        <section className="context-section">
           <div className="container">
             <div className="context-grid fade-up">
               <div className="context-card focus-block">
