@@ -611,7 +611,7 @@ export default function TrivoxCoreLanding() {
         .hero-section {
           position: relative;
           z-index: 1;
-          padding: 72px 0 66px;
+          padding: 72px 0 48px;
         }
         .hero-core {
           max-width: 100%;
@@ -667,7 +667,7 @@ export default function TrivoxCoreLanding() {
         .context-section {
           padding-top: 0 !important;
           padding-bottom: 22px !important;
-          margin-top: -26px;
+          margin-top: -40px;
         }
         .context-grid {
           display: grid;
@@ -764,7 +764,7 @@ export default function TrivoxCoreLanding() {
         }
         .hero-price strong { font-size: 18px; font-family: 'Space Grotesk', sans-serif; color: var(--color-primary); }
         .hero-followup {
-          padding-top: 20px;
+          padding-top: 10px;
           padding-bottom: 72px;
         }
         .hero-side-inner {
@@ -1273,24 +1273,6 @@ export default function TrivoxCoreLanding() {
             padding: 14px 24px;
             border-radius: 12px;
           }
-          .stats-row {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            width: 100%;
-            border: 0;
-            background: transparent;
-          }
-          .stats-row > div {
-            padding: 14px 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.08);
-            background: rgba(255,255,255,0.65);
-          }
-          .stats-row > div:first-child,
-          .stats-row > div:last-child {
-            border-radius: 12px;
-          }
           .focus-block, .format-block {
             padding: 16px;
             border-radius: 14px;
@@ -1317,7 +1299,7 @@ export default function TrivoxCoreLanding() {
           .hero-layout { grid-template-columns: 1fr; gap: 24px; }
           .hero-illust { display: none; }
           .hero-section { padding: 66px 0 20px; }
-          .context-section { margin-top: -14px; }
+          .context-section { margin-top: -20px; }
           .context-grid { grid-template-columns: 1fr; }
           .services-grid { grid-template-columns: repeat(2, 1fr); }
           .advantages-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1332,7 +1314,7 @@ export default function TrivoxCoreLanding() {
           .brand-text { font-size: 18px; letter-spacing: 0; }
           .brand-dot { width: 8px; height: 8px; box-shadow: 0 0 0 3px rgba(30,127,216,.16); }
           .hero-section { padding: 56px 0 14px; }
-          .context-section { margin-top: 0; padding-bottom: 20px !important; }
+          .context-section { margin-top: -10px; padding-bottom: 16px !important; }
           .hero-company {
             font-size: 18px;
             padding: 8px 10px;
@@ -1395,16 +1377,6 @@ export default function TrivoxCoreLanding() {
             min-height: 48px;
             padding: 12px 16px !important;
             font-size: 14px;
-          }
-          .stats-row > div {
-            padding: 12px 14px;
-          }
-          .hero-stat b {
-            font-size: 1.45rem !important;
-          }
-          .hero-stat p {
-            font-size: 13px !important;
-            line-height: 1.45;
           }
           .context-section {
             padding-bottom: 16px !important;
@@ -1512,22 +1484,11 @@ export default function TrivoxCoreLanding() {
                   <HeroIllustration />
                 </div>
               </div>
-              <div className="hero-stats stats-row">
-                {[
-                  ["✅", "99% QA", "на каждом шаге"],
-                  ["🤖", "AI в деле", "встраиваем по делу"],
-                ].map(([icon, v, t]) => (
-                  <div key={v} className="hero-stat">
-                    <b><small>{icon}</small>{v}</b>
-                    <p style={{ fontSize: 14 }}>{t}</p>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </section>
 
-        <section className="context-section" style={{ paddingTop: 6, paddingBottom: 28 }}>
+        <section className="context-section" style={{ paddingTop: 0, paddingBottom: 28 }}>
           <div className="container">
             <div className="context-grid fade-up">
               <div className="context-card focus-block">
