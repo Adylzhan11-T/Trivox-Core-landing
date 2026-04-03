@@ -31,6 +31,12 @@ const LinkedinIcon = ({ size = 20, color = "currentColor" }: { size?: number; co
   </svg>
 );
 
+const WhatsAppIcon = ({ size = 20, color = "currentColor" }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+);
+
 const InstagramIcon = ({ size = 20, color = "currentColor" }: { size?: number; color?: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
@@ -246,9 +252,12 @@ export default function TrivoxCoreLanding() {
   const [phone, setPhone] = useState<E164Number | undefined>();
   const [message, setMessage] = useState("");
   const [formMsg, setFormMsg] = useState<{ type: "idle" | "ok" | "error"; text: string }>({ type: "idle", text: "" });
+  const [sending, setSending] = useState(false);
+  const [showTop, setShowTop] = useState(false);
 
   const onSubmitEmail = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (sending) return;
     const phoneDigits = phone ? phone.replace(/[^\d]/g, "") : "";
     if (phoneDigits.length < 10) {
       setFormMsg({ type: "error", text: "Введите корректный номер телефона." });
@@ -261,6 +270,7 @@ export default function TrivoxCoreLanding() {
       window.setTimeout(() => setFormMsg({ type: "idle", text: "" }), 2800);
       return;
     }
+    setSending(true);
     try {
       const res = await fetch("https://formspree.io/f/xeeplqaa", {
         method: "POST",
@@ -284,11 +294,15 @@ export default function TrivoxCoreLanding() {
     } catch {
       setFormMsg({ type: "error", text: "Ошибка сети. Попробуйте позже." });
     }
+    setSending(false);
     window.setTimeout(() => setFormMsg({ type: "idle", text: "" }), 3500);
   };
 
   useEffect(() => {
-    const onScroll = () => setNavScrolled(window.scrollY > 80);
+    const onScroll = () => {
+      setNavScrolled(window.scrollY > 80);
+      setShowTop(window.scrollY > 600);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
@@ -437,12 +451,26 @@ export default function TrivoxCoreLanding() {
         .btn-primary {
           background: var(--gradient-brand);
           color: var(--color-text-light);
+          transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
         }
+        .btn-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 24px rgba(30,127,216,.35);
+          filter: brightness(1.08);
+        }
+        .btn-primary:active { transform: translateY(0); box-shadow: none; }
         .btn-secondary {
           background: transparent;
           color: var(--color-primary);
           border: 1px solid var(--color-border);
+          transition: background .15s ease, border-color .15s ease, transform .15s ease;
         }
+        .btn-secondary:hover {
+          background: var(--color-bg-soft);
+          border-color: var(--color-accent);
+          transform: translateY(-2px);
+        }
+        .btn-secondary:active { transform: translateY(0); }
         .navbar {
           position: sticky;
           top: 0;
@@ -473,7 +501,21 @@ export default function TrivoxCoreLanding() {
           border: none;
           background: none;
           cursor: pointer;
+          position: relative;
+          padding-bottom: 4px;
+          transition: color .15s ease;
         }
+        .nav-link::after {
+          content: "";
+          position: absolute;
+          bottom: 0; left: 0;
+          width: 0; height: 2px;
+          background: var(--color-accent);
+          border-radius: 1px;
+          transition: width .25s ease;
+        }
+        .nav-link:hover { color: var(--color-accent); }
+        .nav-link:hover::after { width: 100%; }
         .brand-text {
           display: inline-flex;
           align-items: center;
@@ -1011,6 +1053,14 @@ export default function TrivoxCoreLanding() {
           background: rgba(255,255,255,.15);
           border-color: rgba(255,255,255,.5);
         }
+        .social-link-wa {
+          background: rgba(37,211,102,.15);
+          border-color: rgba(37,211,102,.4);
+        }
+        .social-link-wa:hover {
+          background: rgba(37,211,102,.3);
+          border-color: rgba(37,211,102,.6);
+        }
         .green-badge {
           display: inline-flex;
           align-items: center;
@@ -1069,6 +1119,32 @@ export default function TrivoxCoreLanding() {
           font-size: 13px;
         }
 
+        .back-to-top {
+          position: fixed;
+          bottom: 28px;
+          right: 28px;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          background: var(--gradient-brand);
+          color: #fff;
+          border: none;
+          cursor: pointer;
+          display: grid;
+          place-items: center;
+          box-shadow: 0 6px 24px rgba(30,127,216,.35);
+          z-index: 40;
+          animation: fadeIn .3s ease both;
+          transition: transform .15s ease, box-shadow .15s ease;
+        }
+        .back-to-top:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 32px rgba(30,127,216,.45);
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
         .fade-up {
           opacity: 0;
           transform: translateY(32px);
@@ -1439,7 +1515,7 @@ export default function TrivoxCoreLanding() {
               <div className="card about-mini fade-up">
                 <span className="icon-box"><Building2 size={22} /></span>
                 <div>
-                  <h3>Не типичная IT-компания</h3>
+                  <h3>Банковский уровень</h3>
                   <p style={{ marginTop: 8 }}>
                     Команда, выращенная в условиях банковских требований к качеству и срокам. Никаких фрилансеров.
                   </p>
@@ -1582,7 +1658,16 @@ export default function TrivoxCoreLanding() {
                   </a>
                 </div>
               </div>
-              <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
+              <div style={{ display: "flex", gap: 10, marginTop: 16, flexWrap: "wrap" }}>
+                <a
+                  href="https://wa.me/77001234567"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link social-link-wa"
+                >
+                  <WhatsAppIcon size={16} />
+                  WhatsApp
+                </a>
                 <a
                   href="https://www.linkedin.com/company/trivox-core/"
                   target="_blank"
@@ -1652,9 +1737,9 @@ export default function TrivoxCoreLanding() {
                   resize: "none",
                 }}
               />
-              <button className="btn btn-primary" style={{ width: "100%", marginTop: 12 }}>
-                Отправить заявку
-                <ArrowRight size={16} />
+              <button className="btn btn-primary" style={{ width: "100%", marginTop: 12, opacity: sending ? 0.7 : 1 }} disabled={sending}>
+                {sending ? "Отправка..." : "Отправить заявку"}
+                {!sending && <ArrowRight size={16} />}
               </button>
               <div style={{ marginTop: 10, minHeight: 20, fontSize: 12 }}>
                 {formMsg.type === "ok" && (
@@ -1688,7 +1773,8 @@ export default function TrivoxCoreLanding() {
                 <i className="brand-dot" />
               </span>
               <p style={{ marginTop: 10 }}>делаем то, чего не хватает рынку</p>
-              <div style={{ display: "flex", gap: 14, marginTop: 12 }}>
+              <div style={{ display: "flex", gap: 14, marginTop: 12, alignItems: "center" }}>
+                <a href="https://wa.me/77001234567" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><WhatsAppIcon size={20} color="#25D366" /></a>
                 <a href="https://www.linkedin.com/company/trivox-core/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><LinkedinIcon size={20} color="#fff" /></a>
                 <a href="https://www.instagram.com/trivoxcore" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><InstagramIcon size={20} color="#fff" /></a>
                 <a href="mailto:team@trivoxcore.com" aria-label="Email"><Mail size={20} color="#fff" /></a>
@@ -1715,7 +1801,7 @@ export default function TrivoxCoreLanding() {
               <div className="footer-links">
                 <button onClick={() => jump("contacts")}>Запросить аудит</button>
                 <a href="mailto:team@trivoxcore.com">team@trivoxcore.com</a>
-                <a href="#">
+                <a href="https://maps.google.com/?q=Алматы,+Казахстан" target="_blank" rel="noopener noreferrer">
                   <MapPin size={14} style={{ verticalAlign: "text-bottom", marginRight: 6 }} />
                   Алматы, Казахстан
                 </a>
@@ -1728,6 +1814,16 @@ export default function TrivoxCoreLanding() {
           </div>
         </div>
       </footer>
+
+      {showTop && (
+        <button
+          className="back-to-top"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Наверх"
+        >
+          <ArrowRight size={18} style={{ transform: "rotate(-90deg)" }} />
+        </button>
+      )}
     </div>
   );
 }
