@@ -152,36 +152,87 @@ const ALLOWED_COUNTRIES = [...CIS_CODES, ...POPULAR_CODES] as any;
 const CIS_SET = new Set(CIS_CODES);
 
 function CountrySelect({ value, onChange, options, iconComponent: Icon }: any) {
-  const cis = options.filter((o: any) => o.value && CIS_SET.has(o.value));
-  const other = options.filter((o: any) => o.value && !CIS_SET.has(o.value));
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
   const code = value ? `+${getCountryCallingCode(value)}` : "";
 
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
+        setOpen(false);
+        setSearch("");
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setOpen(false); setSearch(""); }
+    };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => { document.removeEventListener("mousedown", onDown); document.removeEventListener("keydown", onKey); };
+  }, [open]);
+
+  useEffect(() => {
+    if (open && searchRef.current) searchRef.current.focus();
+  }, [open]);
+
+  const all = options.filter((o: any) => o.value);
+  const q = search.trim().toLowerCase();
+  const filtered = q
+    ? all.filter((o: any) => {
+        const cc = String(getCountryCallingCode(o.value));
+        return o.label.toLowerCase().includes(q) || `+${cc}`.includes(q) || cc.includes(q);
+      })
+    : all;
+
+  const cis = filtered.filter((o: any) => CIS_SET.has(o.value));
+  const other = filtered.filter((o: any) => !CIS_SET.has(o.value));
+
+  const pick = (c: string) => { onChange(c); setOpen(false); setSearch(""); };
+
   return (
-    <label className="cs-wrap">
-      {value && Icon && <Icon country={value} label="" />}
-      <span className="cs-code">{code}</span>
-      <span className="cs-arrow">▾</span>
-      <select
-        value={value || ""}
-        onChange={(e) => onChange(e.target.value || undefined)}
-        className="cs-native-select"
-      >
-        <optgroup label="СНГ">
-          {cis.map((o: any) => (
-            <option key={o.value} value={o.value}>
-              {o.label} (+{getCountryCallingCode(o.value)})
-            </option>
-          ))}
-        </optgroup>
-        <optgroup label="Другие">
-          {other.map((o: any) => (
-            <option key={o.value} value={o.value}>
-              {o.label} (+{getCountryCallingCode(o.value)})
-            </option>
-          ))}
-        </optgroup>
-      </select>
-    </label>
+    <div className="cs-wrap" ref={wrapRef}>
+      <div className="cs-trigger" onClick={() => setOpen(!open)}>
+        {value && Icon && <Icon country={value} label="" />}
+        <span className="cs-code">{code}</span>
+        <span className="cs-arrow">{open ? "▴" : "▾"}</span>
+      </div>
+      {open && (
+        <div className="cs-dropdown">
+          <div className="cs-search-box">
+            <input
+              ref={searchRef}
+              className="cs-search"
+              placeholder="Страна или код"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <div className="cs-list">
+            {cis.map((o: any) => (
+              <div key={o.value} className={`cs-option${o.value === value ? " cs-active" : ""}`} onClick={() => pick(o.value)}>
+                {Icon && <Icon country={o.value} label="" />}
+                <span className="cs-name">{o.label}</span>
+                <span className="cs-cc">+{getCountryCallingCode(o.value)}</span>
+              </div>
+            ))}
+            {cis.length > 0 && other.length > 0 && <div className="cs-divider" />}
+            {other.map((o: any) => (
+              <div key={o.value} className={`cs-option${o.value === value ? " cs-active" : ""}`} onClick={() => pick(o.value)}>
+                {Icon && <Icon country={o.value} label="" />}
+                <span className="cs-name">{o.label}</span>
+                <span className="cs-cc">+{getCountryCallingCode(o.value)}</span>
+              </div>
+            ))}
+            {cis.length === 0 && other.length === 0 && (
+              <div className="cs-empty">Ничего не найдено</div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -833,48 +884,104 @@ export default function TrivoxCoreLanding() {
         .cs-wrap {
           display: flex;
           align-items: center;
+          flex-shrink: 0;
+          align-self: stretch;
+        }
+        .cs-trigger {
+          display: flex;
+          align-items: center;
           padding: 0 10px 0 14px;
           gap: 6px;
-          flex-shrink: 0;
-          position: relative;
           cursor: pointer;
           border-right: 1px solid var(--color-border);
           align-self: stretch;
+          user-select: none;
         }
-        .cs-wrap .PhoneInputCountryIcon {
-          width: 22px;
-          height: 16px;
-          overflow: hidden;
-          border-radius: 2px;
-          flex-shrink: 0;
-          line-height: 0;
+        .cs-trigger .PhoneInputCountryIcon {
+          width: 22px; height: 16px;
+          overflow: hidden; border-radius: 2px;
+          flex-shrink: 0; line-height: 0;
         }
-        .cs-wrap .PhoneInputCountryIconImg,
-        .cs-wrap .PhoneInputCountryIcon img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
+        .cs-trigger .PhoneInputCountryIconImg,
+        .cs-trigger .PhoneInputCountryIcon img {
+          width: 100%; height: 100%; object-fit: cover;
         }
         .cs-code {
-          font-size: 15px;
-          font-weight: 500;
-          color: var(--color-text-main);
-          white-space: nowrap;
+          font-size: 15px; font-weight: 500;
+          color: var(--color-text-main); white-space: nowrap;
         }
         .cs-arrow {
-          font-size: 11px;
-          color: var(--color-text-muted);
+          font-size: 11px; color: var(--color-text-muted);
+          transition: transform .2s ease;
         }
-        .cs-native-select {
+        .cs-dropdown {
           position: absolute;
-          top: 0;
+          top: calc(100% + 6px);
           left: 0;
           width: 100%;
-          height: 100%;
-          opacity: 0;
-          cursor: pointer;
-          z-index: 1;
+          max-height: 360px;
+          background: #fff;
+          border: 1px solid var(--color-border);
+          border-radius: 14px;
+          box-shadow: 0 12px 48px rgba(26,58,107,.2);
+          z-index: 200;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          animation: csSlide .18s ease both;
         }
+        @keyframes csSlide {
+          from { opacity: 0; transform: translateY(-6px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .cs-search-box {
+          padding: 10px 12px;
+          border-bottom: 1px solid var(--color-border);
+        }
+        .cs-search {
+          width: 100%;
+          border: 1px solid var(--color-border);
+          border-radius: 8px;
+          padding: 9px 12px;
+          font-size: 14px;
+          font-family: inherit;
+          outline: none;
+          background: var(--color-bg-soft);
+        }
+        .cs-search:focus {
+          border-color: var(--color-accent);
+          background: #fff;
+        }
+        .cs-list {
+          overflow-y: auto;
+          flex: 1;
+          padding: 4px 0;
+          scrollbar-width: thin;
+          scrollbar-color: var(--color-border) transparent;
+        }
+        .cs-option {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 14px;
+          cursor: pointer;
+          transition: background .12s ease;
+        }
+        .cs-option:hover { background: var(--color-bg-soft); }
+        .cs-option.cs-active { background: rgba(30,127,216,.08); }
+        .cs-option .PhoneInputCountryIcon {
+          width: 24px; height: 18px;
+          overflow: hidden; border-radius: 3px;
+          flex-shrink: 0; line-height: 0;
+        }
+        .cs-option .PhoneInputCountryIconImg,
+        .cs-option .PhoneInputCountryIcon img {
+          width: 100%; height: 100%; object-fit: cover;
+        }
+        .cs-name { flex: 1; font-size: 14px; color: var(--color-text-main); }
+        .cs-cc { font-size: 14px; color: var(--color-text-muted); font-weight: 500; white-space: nowrap; }
+        .cs-divider { height: 1px; background: var(--color-border); margin: 4px 14px; }
+        .cs-empty { padding: 20px; text-align: center; color: var(--color-text-muted); font-size: 14px; }
         .form-note { margin-top: 10px; font-size: 12px; color: var(--color-text-muted) !important; }
         .mini-help {
           margin-top: 14px;
