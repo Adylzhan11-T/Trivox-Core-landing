@@ -24,6 +24,8 @@ import {
   Target,
   X,
   Zap,
+  Linkedin,
+  Instagram,
 } from "lucide-react";
 
 type Service = { icon: React.ComponentType<{ size?: number }>; title: string; text: string };
@@ -875,6 +877,24 @@ export default function TrivoxCoreLanding() {
           gap: 10px;
           align-items: flex-start;
         }
+        .social-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 8px 16px;
+          border-radius: 10px;
+          border: 1px solid rgba(255,255,255,.3);
+          color: #fff;
+          font-family: 'Manrope', sans-serif;
+          font-weight: 600;
+          font-size: 13px;
+          text-decoration: none;
+          transition: background .2s ease, border-color .2s ease;
+        }
+        .social-link:hover {
+          background: rgba(255,255,255,.15);
+          border-color: rgba(255,255,255,.5);
+        }
         .green-badge {
           display: inline-flex;
           align-items: center;
@@ -1446,6 +1466,26 @@ export default function TrivoxCoreLanding() {
                   </a>
                 </div>
               </div>
+              <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
+                <a
+                  href="https://www.linkedin.com/company/trivox-core/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
+                >
+                  <Linkedin size={16} />
+                  LinkedIn
+                </a>
+                <a
+                  href="https://www.instagram.com/trivoxcore"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
+                >
+                  <Instagram size={16} />
+                  Instagram
+                </a>
+              </div>
             </div>
 
             <form className="contact-form" onSubmit={onSubmitEmail} noValidate>
@@ -1533,8 +1573,9 @@ export default function TrivoxCoreLanding() {
               </span>
               <p style={{ marginTop: 10 }}>делаем то, чего не хватает рынку</p>
               <div style={{ display: "flex", gap: 14, marginTop: 12 }}>
-                <a href="#" aria-label="Telegram"><Phone size={20} color="#fff" /></a>
-                <a href="#" aria-label="LinkedIn"><Mail size={20} color="#fff" /></a>
+                <a href="https://www.linkedin.com/company/trivox-core/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Linkedin size={20} color="#fff" /></a>
+                <a href="https://www.instagram.com/trivoxcore" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={20} color="#fff" /></a>
+                <a href="mailto:team@trivoxcore.com" aria-label="Email"><Mail size={20} color="#fff" /></a>
               </div>
             </div>
             <div>
