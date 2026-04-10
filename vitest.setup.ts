@@ -6,6 +6,7 @@ class MockIntersectionObserver {
   observe() {}
   unobserve() {}
   disconnect() {}
+  takeRecords() { return [] }
 }
 Object.defineProperty(window, 'IntersectionObserver', {
   writable: true,
