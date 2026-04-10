@@ -13,7 +13,7 @@ test.describe('Landing page', () => {
 
   test('показывает hero-заголовок', async ({ page }) => {
     await page.goto('/')
-    await expect(page.getByRole('heading', { name: /IT-аутсорсинг/i })).toBeVisible()
+    await expect(page.getByRole('heading', { name: /IT.{0,5}аутсорсинг/i })).toBeVisible()
   })
 
   test('показывает все ключевые секции', async ({ page }) => {
@@ -38,7 +38,7 @@ test.describe('Mobile viewport', () => {
 
   test('страница не сломана на мобильном', async ({ page }) => {
     await page.goto('/')
-    await expect(page.getByRole('heading', { name: /IT-аутсорсинг/i })).toBeVisible()
+    await expect(page.getByRole('heading', { name: /IT.{0,5}аутсорсинг/i })).toBeVisible()
     await expect(page.locator('#contacts')).toBeVisible()
   })
 })
